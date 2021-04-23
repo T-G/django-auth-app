@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css?v=1.0" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <title>{% block title %}{% endblock %} :: Demo CMS</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Django CMS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    {% block sitenav %}
+                        {% for page in page_list %}
+                            <li class="nav-item"><a class="nav-link" href="{{ page.permalink }}"> {{ page.title }} </a></li>
+                        {% endfor %}
+                        <li class="nav-item"><a class="nav-link" href="/contact"> Contact Us </a></li>
+                        <li class="nav-item"><a class="nav-link" href="/quote/"> Get a Quote </a></li>
+                        <li class="nav-item"><a class="nav-link" href="/quote/show"> Show Quotes </a></li>
+                    {% endblock sitenav %}
+                </ul>
+
+            </div>
+            <span class="justify-content-right">
+                {% if user.is_authenticated%}
+                    <i class="text-light">Hello, {{ user.username }}</i>
+                    <a class="btn btn-outline-warning my-2 my-sm-0" href="{% url 'logout' %}?next=/">Logout</a>
+                {% else %}
+                <i class="text-light">Not logged in</i>
+                    <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'login' %}?next=/">Login</a>
+                {% endif %}
+            </span>
+
+        </div>
+    </nav>
+    <main class="mt-5">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="row amber lighten-3">
+                    <div class="grid-example col s8 offset-s4"><span class="flow-text">{{ message }}</span></div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div> 
+    </main>
+   
+    <footer>
+        <div class="mt-5">
+          <div class="container">
+            &copy; {{ current_year }} Demo CMS | All Rights Reserved 
+          </div>
+        </div>
+    </footer>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src={% static 'js/app.js' %}></script>
+</body>
+</html>
+
+
+       

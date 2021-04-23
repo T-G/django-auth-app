@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Quote Login{% endblock title %}
+
+{% block sitenav %}
+    <li class="nav-item"><a class="nav-link" href="/"> Home </a></li>
+{% endblock sitenav %}
+
+{% block content %}
+    <h1>Please Login</h1>
+    <p>You must be logged in to submit or view quotes.</p>
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table class="table table-stripped">
+            {{ form.as_table }}
+            <tr>
+                <td>&nbsp;</td> 
+                <td><input type="submit" value="Login"></td>
+            </tr>
+        </table>
+        <p>Not registered yet? <a href="{% url 'register' %}">Redister here</a>.</p>
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+{% endblock content %}

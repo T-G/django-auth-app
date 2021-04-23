@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} User Registration {% endblock title %}
+
+{% block sitenav %}
+<li class="nav-item"><a class="nav-link" href="/"> Home </a></li>
+{% endblock sitenav %}
+
+{% block content %}
+<h1>User Registration Success</h1>
+    <div class="alert alert-primary" role="alert">
+        You have succesfully registered.
+    </div>
+    <p>Click <a href="{% url 'login' %}?next=/">here</a> to log in.</p>
+{% endblock content %}

@@ -1,0 +1,11 @@
+<!-- pages/templates/pages/home.html -->
+{% extends 'base.html' %}
+
+{% block title %} {{ page_title }} {% endblock title %}
+
+{% block content %}
+{% autoescape off%}
+{{ page_content }}
+{% endautoescape %}
+<p>Page last updated on {{ page_last_updated|date:'D d F Y' }}</p>
+{% endblock content%}
